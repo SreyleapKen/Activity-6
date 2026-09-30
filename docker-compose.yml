@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+
+  registration-micro:
+    container_name: registration_microservice
+
+    build:
+      context: ./Registration_Microservice
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "5001:5001"
+
+    environment:
+      NODE_ENV: production
+      PORT: 5001
+
+
+  login-micro:
+    container_name: login_microservice
+
+    build:
+      context: ./Login_Microservice
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "5002:5002"
+
+    env_file:
+      - ./Login_Microservice/.env
+
+    environment:
+      NODE_ENV: production
+      PORT: 5002
